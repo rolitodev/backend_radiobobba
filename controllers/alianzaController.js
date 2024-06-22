@@ -14,7 +14,7 @@ const pool = new Pool({
 // Función para crear una nueva alianza
 async function createAlianza(name, idRoom, image) {
     try {
-        const query = 'INSERT INTO alianza (name, idroom, image, active) VALUES ($1, $2, $3, $4) RETURNING *';
+        const query = 'INSERT INTO alianzas (name, idroom, image, active) VALUES ($1, $2, $3, $4) RETURNING *';
         const values = [name, idRoom, image, true];
         const result = await pool.query(query, values);
         return result.rows[0];
@@ -26,7 +26,7 @@ async function createAlianza(name, idRoom, image) {
 // Función para obtener todas las alianzas activas
 async function getActiveAlianzas() {
     try {
-        const query = 'SELECT * FROM alianza WHERE active = true';
+        const query = 'SELECT * FROM alianzas WHERE active = true';
         const result = await pool.query(query);
         return result.rows;
     } catch (error) {
@@ -37,7 +37,7 @@ async function getActiveAlianzas() {
 // Función para actualizar el estado de una alianza
 async function updateAlianza(id, active) {
     try {
-        const query = 'UPDATE alianza SET active = $1 WHERE id = $2 RETURNING *';
+        const query = 'UPDATE alianzas SET active = $1 WHERE id = $2 RETURNING *';
         const values = [active, id];
         const result = await pool.query(query, values);
         return result.rows[0];
@@ -49,7 +49,7 @@ async function updateAlianza(id, active) {
 // Función para eliminar una alianza por su ID
 async function deleteAlianza(id) {
     try {
-        const query = 'DELETE FROM alianza WHERE id = $1';
+        const query = 'DELETE FROM alianzas WHERE id = $1';
         await pool.query(query, [id]);
     } catch (error) {
         throw error;
