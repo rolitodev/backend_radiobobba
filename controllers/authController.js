@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Método de registro
 const register = async (req, res) => {
-    const { name, password, email, rank } = req.body;
+    const { name, password, email, rank, description } = req.body;
 
     if (!name || !password || !rank) {
         return res.status(400).json({ message: 'Todos los campos son obligatorios (name, password, rank).' });
@@ -41,6 +41,7 @@ const register = async (req, res) => {
             email,
             active: true,
             rank,
+            description,
             register_date: new Date().toISOString()
         };
 
