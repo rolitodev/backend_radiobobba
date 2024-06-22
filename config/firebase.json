@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "radiobobba-c2a3b",
+  "private_key_id": "b7bd86753f872c22e997cfe5183294e70c173b8d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCuFoMNdon9JRP7\nCx1ahBv1puk3z+Vs2NDlMeqq3YzQBkj5sSvDfehaQI69Kbqp2YvyhHedUyece7v1\n42RsAQPsD0McY9dE7eN/t4RT7fb2yCKFui+ExT68LN1Gz/7ld0BwCQep0RKAcvsR\n65c/PtKBAbv4a2T1lnIEsiXWe5JkSavQPpqwCdLj4k4Ymyd7fK95AvtbN8LA0dUK\nCr6iXIVs2GcxD90ZrJfjNRbCZyeYAhfH1Q3QO0j7WdFQpgDtzEoTSTbGKl3VQxjr\nFfkizvRdWvQxCrWA3Mha0LZ+wJjZePiWxBHdy9PTwxJ11AcWIq9IXNUbeTrBrlgE\nHe06qfU9AgMBAAECggEAA4gwfmP7i2yGm4Cl+fZotJyMKkYrejO3unkZCpof0RlA\nWHqKlmoi5IpFqxsiSG+bih8IaAnhUAI0D2c4T1DbW5B5Gz9MuIwLO9KrtC7SV77t\npMdttXsLMwx4+W0SZGVXPbHdNMn2XvwWOA6bo4LN7z3R0PA2D+qBvTLASq0rcu5O\nhFvSbdkzTqCT9jz4jZ2S3JULzShFGXgIOSefVLFy42DDRwYlrHrDataEiS21jzPa\neDxBkCy621x2ucseJy0qFRc+irjIWoacadXCGOiuLsWPbQhmJReYGHqAyT93xFVv\n7AD6J+slRMf5vV+TDKO9fexn8mPFIu1dlcq0pIm66QKBgQDlcSdmHUqsoc+QHh4T\ni49I6IMQspuW30/xar6eHRALkeyoUA6r/jS8N7bS8wKyYuVXNRhPKw2sBIvTMva1\ngxT9XBOpGibTws7utRWKQBQGDJkaUEgQZND4pbosa5CS7rY29VM7mAdyZm5jjS/c\nNHUcQpf+XRt1tFsMtJGeEYTGKQKBgQDCPRnsI4jauPbp6UAsDfAZuU4o8SldBGXP\nVPil4nCgoDyqbMmllXzdUNesDqZTR/Vu1gDBwiBtob/uQnMv1AIilrRlkH8Noxmj\ncvP/vkw+93ZZpLlehPpmMg+MMU71ysy4A/C0hcOwnrJzrTHARiIvTsIU7C+Evzb9\nV/G6db/Q9QKBgQCvmAW7FLfNnpinhyUleC1Ucv27jbWdpZIdBMCVaVCaSjeAKKTR\n5F6fnVQB5ZEuzJkQQMY18JEqEOCh5eMBzywFKq6xQB5u+iw8a8HsaFXqu0GA7ef5\nA+8aHFt7G2ctzBsPvHjSpussFlBtR+RU9qCZ3C1OshsN3dXAx4CaJHYk4QKBgQCI\nJGl58MIohAJUmy9mcXJ7pT1aRwY18zIk6yrIonlMrGM5FL0VeTymptYz+6SqtMIb\nKJYpOJagIQI0zpCL0m6YrcbNdUUIWuxKevT4qPoqHCrw1Bs1W8FiRe5N1fXBI57v\nz5sz/JnXvrPXjmpTmRS20d4I6i64PYoecji093k1zQKBgQDAKys5RV50awxUzlgC\nmX5ZcnSHtpTGqa+O4eHBvIkqsIizxq8EO/NczrJoGBeGSdgrYsVs2eNQFPz8j82E\n73lOM6UGp1hOVvHg3M/5AdXSGl/pp1h3e3yMpfKraURTv8dBCkNyPDYXA1gVJwMX\nWEoNWv+Aw8tq4VhmRv1/o9ofVg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-1qhpz@radiobobba-c2a3b.iam.gserviceaccount.com",
+  "client_id": "115435710297437055025",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1qhpz%40radiobobba-c2a3b.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
