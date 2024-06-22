@@ -1,24 +1,23 @@
-const mysql = require('mysql');
+const { Pool } = require('pg');
 
 require('dotenv').config();
 
 // Configuración de la base de datos
-const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: process.env.DB_HOST,
+const pool = new Pool({
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT
 });
 
 // Función para crear una nueva alianza
 async function createAlianza(name, idRoom, image) {
     try {
-        const query = 'INSERT INTO alianza (name, idroom, image, active) VALUES (?, ?, ?, ?)';
+        const query = 'INSERT INTO alianza (name, idroom, image, active) VALUES ($1, $2, $3, $4) RETURNING *';
         const values = [name, idRoom, image, true];
-        const result = await executeQuery(query, values);
-        return result;
+        const result = await pool.query(query, values);
+        return result.rows[0];
     } catch (error) {
         throw error;
     }
@@ -27,10 +26,9 @@ async function createAlianza(name, idRoom, image) {
 // Función para obtener todas las alianzas activas
 async function getActiveAlianzas() {
     try {
-        const query = 'SELECT * FROM alianza WHERE active = ?';
-        const values = [true];
-        const result = await executeQuery(query, values);
-        return result;
+        const query = 'SELECT * FROM alianza WHERE active = true';
+        const result = await pool.query(query);
+        return result.rows;
     } catch (error) {
         throw error;
     }
@@ -39,10 +37,10 @@ async function getActiveAlianzas() {
 // Función para actualizar el estado de una alianza
 async function updateAlianza(id, active) {
     try {
-        const query = 'UPDATE alianza SET active = ? WHERE id = ?';
+        const query = 'UPDATE alianza SET active = $1 WHERE id = $2 RETURNING *';
         const values = [active, id];
-        const result = await executeQuery(query, values);
-        return result;
+        const result = await pool.query(query, values);
+        return result.rows[0];
     } catch (error) {
         throw error;
     }
@@ -51,25 +49,11 @@ async function updateAlianza(id, active) {
 // Función para eliminar una alianza por su ID
 async function deleteAlianza(id) {
     try {
-        const query = 'DELETE FROM alianza WHERE id = ?';
-        const result = await executeQuery(query, [id]);
-        return result;
+        const query = 'DELETE FROM alianza WHERE id = $1';
+        await pool.query(query, [id]);
     } catch (error) {
         throw error;
     }
-}
-
-// Función genérica para ejecutar consultas
-function executeQuery(query, values) {
-    return new Promise((resolve, reject) => {
-        pool.query(query, values, (error, results, fields) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
-    });
 }
 
 module.exports = {

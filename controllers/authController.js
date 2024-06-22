@@ -1,16 +1,14 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const mysql = require('mysql');
-
-require('dotenv').config();
+const { Pool } = require('pg');
+require('dotenv').config(); // Cargar variables de entorno desde el archivo .env
 
 // Configuración de la base de datos usando variables de entorno
-const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: process.env.DB_HOST,
+const pool = new Pool({
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT
 });
 
@@ -27,9 +25,9 @@ const register = async (req, res) => {
 
     try {
         // Verificar si el usuario ya existe
-        const userCheck = await executeQuery('SELECT * FROM users WHERE name = ?', [name]);
+        const userCheck = await pool.query('SELECT * FROM users WHERE name = $1', [name]);
 
-        if (userCheck.length > 0) {
+        if (userCheck.rows.length > 0) {
             return res.status(400).json({ message: 'El usuario ya está registrado. Intenta con otro.' });
         }
 
@@ -47,13 +45,13 @@ const register = async (req, res) => {
         };
 
         // Guardar el usuario en la base de datos
-        const insertUser = await executeQuery(
-            'INSERT INTO users (name, password, email, active, rank, register_date) VALUES (?, ?, ?, ?, ?, ?)',
+        const insertUser = await pool.query(
+            'INSERT INTO users (name, password, email, active, rank, register_date) VALUES ($1, $2, $3, $4, $5, $6)',
             [newUser.name, newUser.password, newUser.email, newUser.active, newUser.rank, newUser.register_date]
         );
 
         // Verificar si se insertó una fila
-        if (insertUser.affectedRows === 1) {
+        if (insertUser.rowCount === 1) {
             res.status(201).json({ message: 'Usuario registrado con éxito.' });
         } else {
             res.status(500).json({ message: 'Ocurrió un error al registrar el usuario.' });
@@ -75,13 +73,13 @@ const login = async (req, res) => {
 
     try {
         // Verificar si el usuario existe y está activo
-        const userCheck = await executeQuery('SELECT * FROM users WHERE name = ? AND active = ?', [name, true]);
+        const userCheck = await pool.query('SELECT * FROM users WHERE name = $1 AND active = TRUE', [name]);
 
-        if (userCheck.length === 0) {
+        if (userCheck.rows.length === 0) {
             return res.status(400).json({ message: 'El usuario no existe o está inactivo.' });
         }
 
-        const user = userCheck[0];
+        const user = userCheck.rows[0];
 
         // Verificar la contraseña
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -117,18 +115,5 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Ocurrió un error inesperado. Inténtalo de nuevo.', bd_error: error });
     }
 };
-
-// Función genérica para ejecutar consultas
-function executeQuery(query, values) {
-    return new Promise((resolve, reject) => {
-        pool.query(query, values, (error, results, fields) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
-    });
-}
 
 module.exports = { register, login };
